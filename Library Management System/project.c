@@ -52,7 +52,7 @@ int main(void)
         // Choose from 1-4
         scanf("%d", &option);
         system("clear"); // Clear screen
-            switch (option)
+        switch (option)
         {
         case 1:
             printf("How many student?\n->: ");
@@ -72,7 +72,7 @@ int main(void)
         case 3:
             returnBook(num);
             break;
-        
+
         case 4:
             break;
         }
@@ -110,7 +110,7 @@ void borrowBook(int num)
         // read & ignore extra characters
         getchar();
         // read string with spaces
-        scanf("%[^\n]s", &bookTitle[i]);
+        scanf("%[^\n]s", bookTitle[i]);
     }
 }
 
