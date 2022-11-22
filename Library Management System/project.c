@@ -8,7 +8,7 @@ void borrowBook(int);
 void viewBooks(int);
 void returnBook(int);
 
-/* Global Variables */
+/*Global Variables*/
 int stdNum[N], isbnNum[N], num, i, *pISBN=NULL;
 char bookTitle[N][N];
 
