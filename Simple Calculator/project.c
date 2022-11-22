@@ -9,7 +9,7 @@ void div(int, int);
 int main(void)
 {
     int choise, num1, num2;
-    /* Function pointer array */
+    /*Function pointer array*/
     void (*fptr[])(int, int) = {add, sub, mul, div};
 
     printf("   Simple Calculator  \n");
