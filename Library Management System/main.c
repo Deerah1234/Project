@@ -42,7 +42,7 @@ int main(void)
     }
     else
     {
-        // Choose from 1-4
+        // Option for 1-4
         scanf("%d", &option);
         system("clear"); // Clear screen
             switch (option)
