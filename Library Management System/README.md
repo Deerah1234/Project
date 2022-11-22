@@ -1,1 +1,1 @@
-##_A simple Library Management System (LMS) using C._
+_A simple Library Management System (LMS) using C._
