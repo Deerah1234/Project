@@ -6,7 +6,7 @@ int stdNum[N], isbnNum[N], num, i, *pISBN=NULL;
 char bookTitle[N][N];
 /*
  * borrowBook - Store arrays of Student Number, ISBN, Book Title.
- * @num: Number of items to be stored
+ * @num: Number of items to be stored.
  */
 void borrowBook(int num)
 {
