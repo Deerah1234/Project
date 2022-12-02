@@ -111,7 +111,7 @@ void borrowBook(int num)
     for (int i = 0; i < num; i++)
     {
         printf("Book Title %d: ", i+1);
-        // read & ignore extra characters
+        /* read & ignore extra characters */
         getchar();
         // read string with spaces
         scanf("%[^\n]s", s[i].bookTitle);
