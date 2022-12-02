@@ -1,19 +1,28 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#define N 100
+#define N 1000
 
 /* Prototypes */
 void borrowBook(int);
 void viewBooks(int);
 void returnBook(int);
 
-/*Global Variables*/
-int stdNum[N], isbnNum[N], num, i, *pISBN=NULL;
-char bookTitle[N][N];
+/* Function pointer */
+void (*fptr[])(int) = {borrowBook, viewBooks, returnBook};
+
+/* Student struct */
+struct student
+{
+    int stdNum;
+    int isbnNum;
+    char bookTitle[N];
+}s[N];
+
 
 int main(void)
 {
+    int num;
     char defaultPsswrd[] = "Admin123";
     int loginAttempt = 0, option;
     char password[N], answr[N];
@@ -52,30 +61,25 @@ int main(void)
         // Choose from 1-4
         scanf("%d", &option);
         system("clear"); // Clear screen
-        switch (option)
+
+        /* TODO: Bound checking if the option > 4 */
+
+        if ((option-1) == 0)
         {
-        case 1:
             printf("How many student?\n->: ");
             scanf("%d", &num);
-            borrowBook(num);
+            fptr[0](num);
             printf("Do you want to issue another book?: ");
             scanf("%s", answr);
             system("clear"); // clear screen
             if (strcmp(answr, "y") == 0 | strcmp(answr, "Y") == 0)
                 goto jump;
-            break;
-
-        case 2:
-            viewBooks(num);
-            break;
-
-        case 3:
-            returnBook(num);
-            break;
-
-        case 4:
-            break;
         }
+        else if (option == 4)
+            exit;
+        else
+            /* Function pointer */
+            fptr[option-1](num);
     }
     return (0);
 }
@@ -88,29 +92,29 @@ void borrowBook(int num)
 {
     printf("Student Number\n");
     printf("----------------\n");
-    for (i = 0; i < num; i++)
+    for (int i = 0; i < num; i++)
     {
         printf("stduent %d: ", i+1);
-        scanf("%d", &stdNum[i]);
+        scanf("%d", &s[i].stdNum);
     }
 
     printf("ISBN\n");
     printf("----------------\n");
-    for (i = 0; i < num; i++)
+    for (int i = 0; i < num; i++)
     {
         printf("ISBN %d: ", i+1);
-        scanf("%d", &isbnNum[i]);
+        scanf("%d", &s[i].isbnNum);
     }
 
     printf("Book Title\n");
     printf("----------------\n");
-    for (i = 0; i < num; i++)
+    for (int i = 0; i < num; i++)
     {
         printf("Book Title %d: ", i+1);
         // read & ignore extra characters
         getchar();
         // read string with spaces
-        scanf("%[^\n]s", bookTitle[i]);
+        scanf("%[^\n]s", s[i].bookTitle);
     }
 }
 
@@ -120,13 +124,13 @@ void borrowBook(int num)
  */
 void viewBooks(int num)
 {
-    for (i = 0; i < num; i++)
+    for (int i = 0; i < num; i++)
     {
         printf("\nStudent %d\n", i+1);
         printf("================\n");
-        printf("-  Student Number: %d\n", stdNum[i]);
-        printf("-  ISBN: %d\n", isbnNum[i]);
-        printf("-  Book Title: %s\n", bookTitle[i]);
+        printf("-  Student Number: %d\n", s[i].stdNum);
+        printf("-  ISBN: %d\n", s[i].isbnNum);
+        printf("-  Book Title: %s\n", s[i].bookTitle);
     }
 }
 
@@ -136,14 +140,50 @@ void viewBooks(int num)
  */
 void returnBook(int num)
 {
-    printf("ISBN: ");
-    scanf("%d", pISBN);
+    int pISBN, flag, idx;
 
-    for (i = 0; i < num; i++)
+    printf("ISBN: ");
+    scanf("%d", &pISBN);
+
+    /* Bound checking for pISBN */
+    /* TODO: Allow Admin to input a valid ISBN */
+    if (pISBN > num)
     {
-        if (*pISBN == isbnNum[i])
-            printf("Return Succesfully");
+        printf("Not record of ISBN");
+        /* TODO: show avaliable records */
+    }
+    else
+    {
+        for (int i = 0; i < num; i++)
+        {
+            if (pISBN == s[i].isbnNum)
+            {
+                flag = 1; // 1 = True
+                idx = i; // Index of the returened item
+                break;
+            }
+            else
+                flag = 0; // 0 = False
+        }
+        if (flag == 1)
+        {
+            printf("Return Successfully\n");
+            /* TODO: Remove student from list if returened */
+            for (size_t i = idx; i < num-1; i++)
+            {
+                s[idx] = s[num-1];
+            }
+            num--;
+            printf("Avaliable students\n");
+            printf("------------------------");
+            viewBooks(num);
+        }
         else
-            printf("Not returned");
+        {
+            printf("Not returned\n");
+            printf("Avaliable students\n");
+            printf("------------------------");
+            viewBooks(num);
+        }
     }
 }
