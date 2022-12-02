@@ -113,7 +113,7 @@ void borrowBook(int num)
         printf("Book Title %d: ", i+1);
         /* read & ignore extra characters */
         getchar();
-        // read string with spaces
+        /* read string with spaces */
         scanf("%[^\n]s", s[i].bookTitle);
     }
 }
