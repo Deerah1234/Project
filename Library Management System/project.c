@@ -168,7 +168,7 @@ void returnBook(int num)
         if (flag == 1)
         {
             printf("Return Successfully\n");
-            /* TODO: Remove student from list if returened */
+            /* Remove student from list if returened */
             for (size_t i = idx; i < num-1; i++)
             {
                 s[idx] = s[num-1];
