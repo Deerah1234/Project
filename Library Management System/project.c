@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#pragma pack(1)
 #define N 1000
 
 /* Prototypes */
@@ -14,9 +15,9 @@ void (*fptr[])(int) = {borrowBook, viewBooks, returnBook};
 /* Student struct */
 struct student
 {
+    char bookTitle[N];
     int stdNum;
     int isbnNum;
-    char bookTitle[N];
 }s[N];
 
 
